@@ -378,4 +378,7 @@ MonoBehaviour:
   Speed: 40
   xClamp: 10
   yClamp: 7
-  xFactor: -1.5
+  positionXFactor: -1.5
+  controlXFactor: -20
+  positionYFactor: 1.5
+  controlZFactor: -20

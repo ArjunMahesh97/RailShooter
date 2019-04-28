@@ -10,7 +10,12 @@ public class Player : MonoBehaviour {
     [SerializeField] float xClamp = 10f;
     [SerializeField] float yClamp = 7f;
 
-    [SerializeField] float xFactor = -1.5f;
+    [SerializeField] float positionXFactor = -1.5f;
+    [SerializeField] float controlXFactor = -20f;
+    [SerializeField] float positionYFactor = 1.5f;
+    [SerializeField] float controlZFactor = -20f;
+
+    float xThrow, yThrow;
 
 
     // Use this for initialization
@@ -27,16 +32,16 @@ public class Player : MonoBehaviour {
 
     private void ProcessRotation()
     {
-        float xRot = transform.localPosition.y * xFactor;
-        float yRot = 0f;
-        float zRot = 0f;
+        float xRot = transform.localPosition.y * positionXFactor + yThrow * controlXFactor;
+        float yRot = transform.localPosition.x * positionYFactor;
+        float zRot = xThrow * controlZFactor;
         transform.localRotation = Quaternion.Euler(xRot, yRot, zRot);
     }
 
     private void ProcessTranslation()
     {
-        float xThrow = CrossPlatformInputManager.GetAxis("Horizontal");
-        float yThrow = CrossPlatformInputManager.GetAxis("Vertical");
+        xThrow = CrossPlatformInputManager.GetAxis("Horizontal");
+        yThrow = CrossPlatformInputManager.GetAxis("Vertical");
 
         float xOffset = xThrow * Speed * Time.deltaTime;
         float xPos = transform.localPosition.x + xOffset;
