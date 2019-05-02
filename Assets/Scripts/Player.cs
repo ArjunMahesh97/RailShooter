@@ -30,6 +30,11 @@ public class Player : MonoBehaviour {
         ProcessRotation();
     }
 
+    private void OnTriggerEnter(Collider other)
+    {
+        print("a");
+    }
+
     private void ProcessRotation()
     {
         float xRot = transform.localPosition.y * positionXFactor + yThrow * controlXFactor;
