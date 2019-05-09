@@ -15,6 +15,8 @@ public class PlayerController: MonoBehaviour {
     [SerializeField] float positionYFactor = 1.5f;
     [SerializeField] float controlZFactor = -20f;
 
+    [SerializeField] GameObject[] guns;
+
     float xThrow, yThrow;
     bool isControlEnabled = true;
 
@@ -31,6 +33,7 @@ public class PlayerController: MonoBehaviour {
         {
             ProcessTranslation();
             ProcessRotation();
+            ProcessFiring();
         }
     }
 
@@ -63,5 +66,23 @@ public class PlayerController: MonoBehaviour {
         float clampedYPos = Mathf.Clamp(yPos, -yClamp, yClamp);
 
         transform.localPosition = new Vector3(clampedXPos, clampedYPos, transform.localPosition.z);
+    }
+
+    private void ProcessFiring()
+    {
+        if (CrossPlatformInputManager.GetButton("Fire"))
+        {
+            foreach(GameObject gun in guns)
+            {
+                gun.SetActive(true);
+            }
+        }
+        else
+        {
+            foreach(GameObject gun in guns)
+            {
+                gun.SetActive(false);
+            }
+        }
     }
 }
